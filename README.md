@@ -6,4 +6,4 @@ This is a hunt the wumpus clone with each of the caverns implemented as function
 
 Once you have determined which chamber the wumpus is in, call the `shoot` function with the symbol of the chamber the wumpus is in.
 
-The game is played in IRB.
+The game is played in IRB. Execute `./wumpus` in the directory to clear the screen and play the game.
