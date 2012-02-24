@@ -1,0 +1,4 @@
+#!/bin/bash
+
+clear
+irb --simple-prompt -r ./wumpus.rb
