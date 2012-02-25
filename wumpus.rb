@@ -103,7 +103,7 @@ EOF
 	puts <<-EOF
 
    You are deep in the Caves of Closure, hunting the mysterious Wumpus.
-   You have a gun with one bullet. Use it well.
+   You have a gun (called with \033[1mshoot(cavern_id)\033[0m) with one bullet. Use it well.
    
    You are in a cavern with a ladder, leading to cavern \033[1m#{nodes[0][0]}\033[0m.
    Call the function (by typing it's name) \033[1m#{nodes[0][0]}\033[0m to climb down the ladder
