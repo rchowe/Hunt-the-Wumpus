@@ -76,6 +76,7 @@ def let_the_hunt_begin
 EOF
 		$game_running = false
 		undefn_each nodes.map { |node| node[0] }
+		undefn :shoot
 	end
 	
 	# Let the user shoot
