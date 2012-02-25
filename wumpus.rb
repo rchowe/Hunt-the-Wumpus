@@ -86,11 +86,11 @@ EOF
 		ns = nodes.reject { |x| x[0] != node }
 		
 		# If it's not valid
-		if ns.nil?
+		if ns.nil? or ns.empty?
 			game_over "You shot the wall!"
 		
 		# If you shot the wumpus
-		elsif
+		elsif ns.first[1] == :wumpus
 			game_over "You \033[32mshot the Wumpus!\033[0m."
 		
 		# If you didn't shoot the wumpus
