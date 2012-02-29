@@ -63,7 +63,7 @@ def let_the_hunt_begin
 	# The first node is the one the player will climb down into.
 	# Therefore, we shuffle until there is nothing dangerous there
 	# and replace whatever is there with the ladder
-	nodes.shuffle! while [:wumpus, :gas].include? nodes[0][1]
+	nodes.shuffle! while [:wumpus, :pit].include? nodes[0][1]
 	
 	# Game over
 	defn :game_over do |str|
