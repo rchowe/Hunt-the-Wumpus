@@ -7,6 +7,14 @@
 #	http://www.rchowe.com
 #
 
+if ENV['HARDMODE']
+	ChamberCount = 25
+elsif ENV['CHAMBER_COUNT']
+	ChamberCount = ENV['CHAMBER_COUNT'].to_i
+else
+	ChamberCount = 15
+end
+
 # The method that starts the game
 def let_the_hunt_begin
 	
@@ -51,19 +59,18 @@ def let_the_hunt_begin
 	$game_running = true
 	
 	# Each 'cavern' is a node, represented by an array
-	nodes = []
-	nodes = (1..20).map { generate_symbol }.uniq while nodes.length < 20
-	
-	# Put hazards and descriptions into nodes
-	descriptions = [:wumpus, :pit, :smelly, :clean, :grimy, :mucky, :muddy,
-	                :large, :small, :wide, :wet, :stuffy, :overgrown, :warm,
-	                :cold, :red, :green, :blue, :yellow, :purple ]
-	nodes = nodes.zip descriptions.shuffle
+	descriptions = [:cavernous, :flooded, :smelly, :clean, :grimy, :mucky,
+	                :muddy, :large, :small, :wide, :wet, :stuffy, :overgrown,
+	                :warm, :cold, :red, :greenish, :blueish, :yellow,
+	                :purpleish, :dingy, :chilly, :haunted, :ghostly, :tiny ]
+	nodes = descriptions.take(ChamberCount).shuffle.map { |x| [x, :safe] }
+	nodes[0][1] = :wumpus
+	nodes[1][1] = :pit
 	
 	# The first node is the one the player will climb down into.
 	# Therefore, we shuffle until there is nothing dangerous there
 	# and replace whatever is there with the ladder
-	nodes.shuffle! while [:wumpus, :pit].include? nodes[0][1]
+	nodes.shuffle! while nodes[0][1] != :safe
 	
 	# Game over
 	defn :game_over do |str|
@@ -103,9 +110,9 @@ EOF
 	puts <<-EOF
 
    You are deep in the Caves of Closure, hunting the mysterious Wumpus.
-   You have a gun (called with \033[1mshoot(cavern_id)\033[0m) with one bullet. Use it well.
+   You have a gun (called with \033[1mshoot(cavern_description)\033[0m) with one bullet. Use it well.
    
-   You are in a cavern with a ladder, leading to cavern \033[1m#{nodes[0][0]}\033[0m.
+   You are in a cavern with a ladder, leading to a \033[1m#{nodes[0][0]}\033[0m chamber.
    Call the function (by typing it's name) \033[1m#{nodes[0][0]}\033[0m to climb down the ladder
    and enter the first cavern.
    
@@ -115,8 +122,11 @@ EOF
 	definer = lambda do |index, &block|
 		
 		# Determine which nodes are adjacent
-		adjacent_indicies = [(index + 19) % 20, (index + 1) % 20,
-							 (index + 4) % 20, (index + 16) % 20]
+		adjacent_indicies = [(index + ChamberCount - 1) % ChamberCount,
+		                     (index + 1) % ChamberCount,
+							 (index + 4) % ChamberCount,
+							 (index + ChamberCount - 4) % ChamberCount].uniq.
+							 	shuffle
 		adjacent_nodes = adjacent_indicies.map { |x| nodes[x] }
 		adjacents = Hash[ adjacent_indicies.zip adjacent_nodes ]
 		
@@ -140,7 +150,7 @@ EOF
 			if [:wumpus, :pit, :ladder].include? node[1]
 				print "\n   You have entered a chamber with a #{node[1]} in it."
 			else
-				print "\n   You have entered a #{node[1]} chamber."
+				print "\n   You have entered a #{node[0]} chamber."
 			end
 			
 			# If the player entered a bad chamber...
@@ -165,7 +175,7 @@ EOF
 			# Inform the user of the tunnels
 			puts "\n   There are tunnels to " +
 				adjacent_nodes[0..adjacent_nodes.length-2].map { |x| "\033[1m#{x[0]}\033[0m" }.join(', ') +
-				", and " + "\033[1m#{adjacent_nodes[adjacent_nodes.length-1][0]}\033[0m.\n\n"
+				"#{',' if adjacent_nodes.length > 2} and " + "\033[1m#{adjacent_nodes[adjacent_nodes.length-1][0]}\033[0m chambers.\n\n"
 			
 			# Return the tunnel ids
 			adjacent_nodes.map { |n| n[0] }[0..adjacent_nodes.length-1]
