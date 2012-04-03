@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Hunt-the-wumpus by rchowe</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Hunt-the-wumpus</h1>
+        <p>Hunt the Wumpus as a metaprogramming game in IRB</p>
+        <p class="view"><a href="https://github.com/rchowe/Hunt-the-Wumpus">View the Project on GitHub <small>rchowe/Hunt-the-Wumpus</small></a></p>
+        <ul>
+          <li><a href="https://github.com/rchowe/Hunt-the-Wumpus/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/rchowe/Hunt-the-Wumpus/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/rchowe/Hunt-the-Wumpus">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>How to play</h3>
+
+<p>This game is played in IRB; a launcher is included with the game, however it can also be played by simply <code>require</code>ing the file <code>wumpus.rb</code> in a running IRB session. Call <code>let_the_hunt_begin</code> to start the game, and follow the instructions, calling functions (cavern names) to move between caverns. If a cavern has blood on the walls, it implies that the wumpus is in a connected cavern. If a cavern has a breeze in it, there is a pit in a connected cavern. Once you have found the wumpus, call <code>shoot :cavern_description</code> to finally kill the wumpus! Each movement function returns a list of connected caverns for ease of writing programs to play the game.</p>
+
+<h3>Installation and Running</h3>
+
+<pre><code>git clone git://github.com/rchowe/Hunt-the-Wumpus.git
+cd Hunt-the-Wumpus
+bundle install
+./wumpus
+</code></pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/rchowe">rchowe</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
