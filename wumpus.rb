@@ -84,6 +84,7 @@ EOF
 		$game_running = false
 		undefn_each nodes.map { |node| node[0] }
 		undefn :shoot
+		nil
 	end
 	
 	# Let the user shoot
